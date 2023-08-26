@@ -1,3 +1,14 @@
 {
-	"name": "ca.terrylockett.mc-terrain"
+    "name": "ca.terrylockett.mc-terrain",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

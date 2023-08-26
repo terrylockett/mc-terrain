@@ -1,3 +1,18 @@
 {
-	"name": "ca.terrylockett.mc-terrain.editor"
+    "name": "ca.terrylockett.mc-terrain.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2565ec61d5cd2f8a68e6200fb4a8487c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

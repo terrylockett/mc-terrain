@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class MarchingCubesGrid : MonoBehaviour {
     [SerializeField] private VertexNode VertexNodePrefab;
-    [SerializeField] private Material defaultMat;
     [SerializeField] private int mapSize;
     [SerializeField] private int chunks = 4;
     [SerializeField] private int mapHeight = 10;
     [SerializeField] float amplitude = 1f;
-    [SerializeField] private float xScalar = 2f;
-    [SerializeField] float yScalar = 2f;
+    [SerializeField] private float xScalar = 1f;
+    [SerializeField] float yScalar = 1f;
     [SerializeField] float isoLevel = 0.6f;
 
     [SerializeField] private MCTerrainData terrainData;
@@ -39,9 +38,6 @@ public class MarchingCubesGrid : MonoBehaviour {
 
         //tmp
         ball = GameObject.Find("BrushSphere");
-
-
-        this.defaultMat.SetColor("Green", Color.green);
 
         //reset refs to Terrain Chunks
         this.terrainChunks.Clear();
@@ -91,13 +87,7 @@ public class MarchingCubesGrid : MonoBehaviour {
             this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, isoLevel);
         }
 
-
-        this.defaultMat = Resources.Load<Material>("MCTerrainRes/MCDefaultMaterial");
-        this.defaultMat.SetColor("Green", Color.green);
-
         updateTerrainDataFromInspector();
-
-        this.defaultMat.SetColor("Green", Color.green);
 
         this.mapSize = this.chunks * TerrainChunk.CHUNK_SIZE;
         this.terrainChunks = new List<TerrainChunk>();
@@ -192,7 +182,6 @@ public class MarchingCubesGrid : MonoBehaviour {
     }
 
 
-
     private TerrainChunk makeChunk(int x, int y) {
         //TODO fix this. it should be a prefab instead of a bunch of add components.
         GameObject chunk2 = new GameObject("TerrainChunk");
@@ -200,10 +189,9 @@ public class MarchingCubesGrid : MonoBehaviour {
         chunk2.AddComponent<TerrainChunk>();
         chunk2.AddComponent<MeshFilter>();
         chunk2.AddComponent<MeshRenderer>();
-        if(this.defaultMat == null) {
-            Debug.Log("itys null!");
-        }
-        chunk2.GetComponent<MeshRenderer>().material = this.defaultMat;
+
+        //TODO expose a proper mat setter instead of this peice o poo
+        chunk2.GetComponent<MeshRenderer>().material = this.GetComponent<MeshRenderer>().sharedMaterials[0];
         chunk2.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         chunk2.AddComponent<MeshCollider>();
         TerrainChunk tc2 = chunk2.GetComponent<TerrainChunk>();
@@ -211,28 +199,6 @@ public class MarchingCubesGrid : MonoBehaviour {
         return tc2;
 
     }
-
-    // private void initGuiFields() {
-    //     this.mapSizeText = mapSize.ToString();
-    //     this.mapHeightText = mapHeight.ToString();
-    //     this.amplidtudeText = amplitude.ToString();
-    //     this.xScalarText = xScalar.ToString();
-    //     this.yScalarText = yScalar.ToString();
-    //     this.xOffsetText = "TODO";
-    //     this.yOffsetText = "TODO";
-    //     this.groundHeightText = "TODO";
-    // }
-
-    // private void UIValuesToAttributes() {
-    //     this.mapSize = Int32.Parse(mapSizeText);
-    //     this.mapHeight = Int32.Parse(mapHeightText);
-    //     this.amplitude = float.Parse(amplidtudeText);
-    //     this.xScalar = float.Parse(this.xScalarText);
-    //     this.yScalar = float.Parse(this.yScalarText);
-    //     // this.xOffsetText = "TODO";
-    //     // this.yOffsetText = "TODO";
-    //     // this.groundHeightText = "TODO";
-    // }
 
 
     void OnDrawGizmosSelected() {
@@ -254,5 +220,4 @@ public class MarchingCubesGrid : MonoBehaviour {
 
         return this.terrainChunksEmptyObject.transform;
     }
-
 }

@@ -4,8 +4,6 @@ Terrain for Unity using the Marching Cubes algorithm.
 
 ## Installation
 
-#### Unity Package Manager (UPM):
-
 There are two ways to use this package:
 
 - **BB Way**: Clone the repo and copy into *Assets*.

@@ -1,0 +1,16 @@
+{
+  "name":"ca.terrylockett.mc-terrain",
+  "version":"0.1.1",
+  
+  "description": "Marching cubes terrain package",
+  "displayName": "McTerrain",
+  "unity": "2020.1",
+
+  "author": {
+    "name": "Terry Lockett",
+    "url": "http://terrylockett.ca"
+  },
+  "documentationUrl": "https://github.com/terrylockett/mc-terrain#readme"
+
+}
+

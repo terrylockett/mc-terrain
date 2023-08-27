@@ -123,7 +123,6 @@ namespace McTerrain
 
             foreach (VertexNode node in vertexNodes)
             {
-
                 float nodeWeight = noiseForLoc(node.getLocation());
 
 
@@ -134,6 +133,13 @@ namespace McTerrain
                 }
             }
 
+            for (int x = 0; x < CHUNK_SIZE + 1; x++)
+            {
+                for (int z = 0; z < CHUNK_SIZE + 1; z++)
+                {
+                    //vertexNodes[x,0,z].setWeight(1);
+                }
+            }
         }
 
 
@@ -164,10 +170,9 @@ namespace McTerrain
 
         public float noiseForLoc(Vector3 vec)
         {
-
             float returnVal = Mathf.PerlinNoise(
-                 (vec.x / terrainData.mapSize) * terrainData.xAmpScale,
-                 (vec.z / terrainData.mapSize) * terrainData.zAmpScale);
+                 (vec.x / terrainData.mapSize) * terrainData.xAmpScale + terrainData.xOffset,
+                 (vec.z / terrainData.mapSize) * terrainData.zAmpScale + terrainData.zOffset);
 
             returnVal += (vec.y / terrainData.mapHeight) * 1.0f;
             return returnVal * this.terrainData.amplitude;

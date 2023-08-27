@@ -14,8 +14,8 @@ namespace McTerrain
         private SerializedProperty amplidtudeText;
         private SerializedProperty xScalarText;
         private SerializedProperty yScalarText;
-        //private SerializedProperty xOffsetText;
-        //private SerializedProperty yOffsetText;
+        private SerializedProperty xOffsetText;
+        private SerializedProperty zOffsetText;
         private SerializedProperty isoLevelText;
 
         private bool isSculptMode = false;
@@ -33,6 +33,10 @@ namespace McTerrain
             this.amplidtudeText = serializedObject.FindProperty("amplitude");
             this.xScalarText = serializedObject.FindProperty("xScalar");
             this.yScalarText = serializedObject.FindProperty("yScalar");
+
+            this.xOffsetText = serializedObject.FindProperty("xOffset");
+            this.zOffsetText = serializedObject.FindProperty("zOffset");
+
             //this.xOffsetText = "TODO";
             //this.yOffsetText = "TODO";
             this.isoLevelText = serializedObject.FindProperty("isoLevel");
@@ -67,8 +71,8 @@ namespace McTerrain
             EditorGUILayout.PropertyField(amplidtudeText);
             EditorGUILayout.PropertyField(xScalarText);
             EditorGUILayout.PropertyField(yScalarText);
-            // EditorGUILayout.TextArea("xOffset", "TODO");
-            // EditorGUILayout.TextArea("yOffset", "TODO");
+            EditorGUILayout.PropertyField(xOffsetText);
+            EditorGUILayout.PropertyField(zOffsetText);
             EditorGUILayout.PropertyField(isoLevelText);
             EditorGUILayout.EndToggleGroup();
 
@@ -76,13 +80,7 @@ namespace McTerrain
             EditorGUILayout.TextArea("TODO");
             EditorGUILayout.EndToggleGroup();
 
-            isSculptMode = EditorGUILayout.BeginToggleGroup("Enable sculpt mode", isSculptMode);
-            this.brushSize = EditorGUILayout.FloatField("Brush Size", this.brushSize);
-            EditorGUILayout.FloatField("Brush Strength", this.brushstrength);
-            EditorGUILayout.FloatField("Brush Hardness", this.brushHardness);
-            EditorGUILayout.EndToggleGroup();
-
-
+            
             MarchingCubesGrid mcGrid = getTargetGrid();
 
 
@@ -93,7 +91,15 @@ namespace McTerrain
                 //MarchingCubesGrid mcGrid = (MarchingCubesGrid)target;
                 mcGrid.updateTerrainDataFromInspector();
                 //TODO call method to update terrain.
+                mcGrid.editModeDestoryChunks();
+                mcGrid.createGrid();
             }
+
+            isSculptMode = EditorGUILayout.BeginToggleGroup("Enable sculpt mode", isSculptMode);
+            this.brushSize = EditorGUILayout.FloatField("Brush Size", this.brushSize);
+            EditorGUILayout.FloatField("Brush Strength", this.brushstrength);
+            EditorGUILayout.FloatField("Brush Hardness", this.brushHardness);
+            EditorGUILayout.EndToggleGroup();
 
             if (GUILayout.Button("Generate mesh"))
             {

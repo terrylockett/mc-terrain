@@ -6,22 +6,25 @@ namespace McTerrain
     [System.Serializable]
     public class MCTerrainData
     {
-
-        [SerializeField] private bool isInitialized = false; //TODO i dont like this.
+        
         [SerializeField] public float amplitude;
         [SerializeField] public int mapSize;
         [SerializeField] public int mapHeight;
         [SerializeField] public float xAmpScale;
         [SerializeField] public float zAmpScale;
+        [SerializeField] public float xOffset;
+        [SerializeField] public float zOffset;
         [SerializeField] public float isoLevel;
 
-        public MCTerrainData(float amplitude, int mapSize, int mapHeight, float xAmpScale, float zAmpScale, float isoLevel)
+        public MCTerrainData(float amplitude, int mapSize, int mapHeight, float xAmpScale, float zAmpScale, float xOffset, float zOffset, float isoLevel)
         {
             this.amplitude = amplitude;
             this.mapSize = mapSize;
             this.mapHeight = mapHeight;
             this.xAmpScale = xAmpScale;
             this.zAmpScale = zAmpScale;
+            this.xOffset = xOffset;
+            this.zOffset = zOffset;
             this.isoLevel = isoLevel;
         }
 

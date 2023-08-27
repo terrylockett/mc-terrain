@@ -14,20 +14,14 @@ namespace McTerrain
         [SerializeField] float amplitude = 1f;
         [SerializeField] private float xScalar = 1f;
         [SerializeField] float yScalar = 1f;
+
+        [SerializeField] float xOffset = 0f;
+        [SerializeField] float zOffset = 0f;
+
         [SerializeField] float isoLevel = 0.6f;
 
         [SerializeField] private MCTerrainData terrainData;
         [SerializeField] private List<TerrainChunk> terrainChunks;
-
-
-        private string mapSizeText;
-        private string mapHeightText;
-        private string amplidtudeText;
-        private string xScalarText;
-        private string yScalarText;
-        private string xOffsetText;
-        private string yOffsetText;
-        private string groundHeightText;
 
 
         //TODO tmp ball for deforming terrain
@@ -39,33 +33,16 @@ namespace McTerrain
 
         void Start()
         {
-
             //tmp
             ball = GameObject.Find("BrushSphere");
 
             //reset refs to Terrain Chunks
             getTerrainChunks();
-
-            // this.mapSize = this.chunks * TerrainChunk.CHUNK_SIZE;
-            // this.terrainChunks = new List<TerrainChunk>();
-
-            // this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, isoLevel);
-
-
-            // for(int x=0; x< chunks; x++) {
-            //     for(int z=0; z< chunks; z++) {
-            //         TerrainChunk tc = makeChunk(x,z);
-            //         this.terrainChunks.Add(tc);
-            //     }
-            // }
-
-            //initGuiFields();
         }
 
 
         void Update()
         {
-
             //TODO handle this better lol
             // foreach (TerrainChunk tChunk in getTerrainChunks())
             // {
@@ -75,17 +52,22 @@ namespace McTerrain
         }
 
 
+        public void editModeDestoryChunks() {
+            foreach (TerrainChunk tChunk in terrainChunks) {
+                if(null != tChunk) {
+                    DestroyImmediate(tChunk.gameObject);
+                }
+            }
+            this.terrainData = null;
+        }
+
 
         public void createGrid()
         {
 
-            // foreach (TerrainChunk tChunk in terrainChunks) {
-            //     Destroy(tChunk.gameObject);
-            // }
-
             if (this.terrainData == null)
             {
-                this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, isoLevel);
+                this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, xOffset, zOffset, isoLevel);
             }
 
             updateTerrainDataFromInspector();
@@ -96,7 +78,7 @@ namespace McTerrain
             //create terain data
             if (null == this.terrainData)
             {
-                this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, isoLevel);
+                this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, xOffset, zOffset, isoLevel);
             }
 
             for (int x = 0; x < chunks; x++)
@@ -137,6 +119,8 @@ namespace McTerrain
             this.terrainData.mapHeight = this.mapHeight;
             this.terrainData.xAmpScale = this.xScalar;
             this.terrainData.zAmpScale = this.yScalar;
+            this.terrainData.xOffset = this.xOffset;
+            this.terrainData.zOffset = this.zOffset;
             this.terrainData.isoLevel = this.isoLevel;
 
         }

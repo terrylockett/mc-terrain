@@ -11,7 +11,7 @@ namespace McTerrain
     {
 
         public static readonly int CHUNK_SIZE = 16;
-        public static readonly int CHUNK_HEIGHT = 10;
+       // public static readonly int CHUNK_HEIGHT = 10;
 
         private VertexNode vertexNodePrefab;
 
@@ -19,7 +19,7 @@ namespace McTerrain
         [SerializeField] private int zchunkOffset;
 
 
-        private MCTerrainData terrainData;
+        [SerializeField] private MCTerrainData terrainData;
 
         private VertexNode[,,] vertexNodes;
         [SerializeField] private List<VertexNode> serializedVerticies = new List<VertexNode>();
@@ -64,7 +64,7 @@ namespace McTerrain
              bool isTerrainDirty = false;
             for (int x = 0; x < CHUNK_SIZE + 1; x++)
             {
-                for (int y = 0; y < CHUNK_HEIGHT; y++)
+                for (int y = 0; y < terrainData.getMapHeight(); y++)
                 {
                     for (int z = 0; z < CHUNK_SIZE + 1; z++)
                     {
@@ -77,7 +77,7 @@ namespace McTerrain
                         {
                             continue;
                         }
-                        if (vNode.getLocation().y >= CHUNK_HEIGHT)
+                        if (vNode.getLocation().y >= terrainData.getMapHeight())
                         {
                             continue;
                         }
@@ -100,7 +100,7 @@ namespace McTerrain
             bool isTerrainDirty = false;
             for (int x = 0; x < CHUNK_SIZE + 1; x++)
             {
-                for (int y = 0; y < CHUNK_HEIGHT; y++)
+                for (int y = 0; y < terrainData.getMapHeight(); y++)
                 {
                     for (int z = 0; z < CHUNK_SIZE + 1; z++)
                     {
@@ -116,7 +116,7 @@ namespace McTerrain
                         {
                             continue;
                         }
-                        if (vNode.getLocation().y >= CHUNK_HEIGHT)
+                        if (vNode.getLocation().y >= terrainData.getMapHeight())
                         {
                             continue;
                         }
@@ -181,7 +181,7 @@ namespace McTerrain
         {
 
             int hoizontalNodes = CHUNK_SIZE + 1;
-            int veticalNodes = CHUNK_HEIGHT + 1;
+            int veticalNodes = terrainData.getMapHeight() + 1;
 
             VertexNode[,,] verticies = new VertexNode[hoizontalNodes, veticalNodes, hoizontalNodes];
 
@@ -222,7 +222,7 @@ namespace McTerrain
 
             for (int x = 0; x < CHUNK_SIZE; x++)
             {
-                for (int y = 0; y < CHUNK_HEIGHT; y++)
+                for (int y = 0; y < terrainData.getMapHeight(); y++)
                 {
                     for (int z = 0; z < CHUNK_SIZE; z++)
                     {
@@ -346,7 +346,7 @@ namespace McTerrain
         {
             // Debug.Log("DE SErialize");
             int hoizontalNodes = CHUNK_SIZE + 1;
-            int veticalNodes = CHUNK_HEIGHT + 1;
+            int veticalNodes = terrainData.getMapHeight() + 1;
 
 
             vertexNodes = new VertexNode[hoizontalNodes, veticalNodes, hoizontalNodes];
@@ -379,7 +379,7 @@ namespace McTerrain
         {
             // Debug.Log("OnSerialize");
             int hoizontalNodes = CHUNK_SIZE + 1;
-            int veticalNodes = CHUNK_HEIGHT + 1;
+            int veticalNodes = terrainData.getMapHeight() + 1;
             serializedVerticies.Clear();
 
             for (int x = 0; x < hoizontalNodes; x++)

@@ -18,6 +18,8 @@ namespace McTerrain
         private SerializedProperty zOffsetText;
         private SerializedProperty isoLevelText;
 
+      //  private SerializedProperty ExplosionPublisherUI;
+
         private bool isSculptMode = false;
         private float brushSize = 4.0f;
         private float brushstrength = 0.5f;
@@ -40,6 +42,8 @@ namespace McTerrain
             //this.xOffsetText = "TODO";
             //this.yOffsetText = "TODO";
             this.isoLevelText = serializedObject.FindProperty("isoLevel");
+
+            
         }
 
 
@@ -60,6 +64,8 @@ namespace McTerrain
         public override void OnInspectorGUI()
         {
             GUI.changed = false;
+
+
             EditorGUI.BeginChangeCheck();
 
             terrainSizeToggle = EditorGUILayout.BeginToggleGroup("Edit Terrain Size", terrainSizeToggle);
@@ -103,7 +109,7 @@ namespace McTerrain
 
             if (GUILayout.Button("Generate mesh"))
             {
-                mcGrid.editModeDestoryChunks();
+                mcGrid.editModeDestoryChunks(); 
                 mcGrid.createGrid();
             }
 

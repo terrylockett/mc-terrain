@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace McTerrain
 {
     public class MarchingCubesGrid : MonoBehaviour
     {
         [SerializeField] private VertexNode VertexNodePrefab;
+
         [SerializeField] private int mapSize;
         [SerializeField] private int chunks = 4;
         [SerializeField] private int mapHeight = 10;
@@ -22,6 +24,8 @@ namespace McTerrain
 
         [SerializeField] private MCTerrainData terrainData;
         [SerializeField] private List<TerrainChunk> terrainChunks;
+
+     
 
 
         //TODO tmp ball for deforming terrain
@@ -96,8 +100,7 @@ namespace McTerrain
 
 
         public void makeBombHole(Vector3 point, float radius) {
-            foreach (TerrainChunk tChunk in getTerrainChunks())
-            {
+            foreach (TerrainChunk tChunk in getTerrainChunks()) {
                 tChunk.setTerrainData(this.terrainData);
                 tChunk.makeBombHole(point, radius);
             }
@@ -164,9 +167,9 @@ namespace McTerrain
             Vector3 gizmoPos = transform.position;
             gizmoPos.x += (TerrainChunk.CHUNK_SIZE * chunks) / 2;
             gizmoPos.z += (TerrainChunk.CHUNK_SIZE * chunks) / 2;
-            gizmoPos.y += (TerrainChunk.CHUNK_HEIGHT) / 2;
+            gizmoPos.y += (terrainData.getMapHeight()) / 2;
 
-            Gizmos.DrawWireCube(gizmoPos, new Vector3(chunks * TerrainChunk.CHUNK_SIZE, TerrainChunk.CHUNK_HEIGHT, chunks * TerrainChunk.CHUNK_SIZE));
+            Gizmos.DrawWireCube(gizmoPos, new Vector3(chunks * TerrainChunk.CHUNK_SIZE, terrainData.getMapHeight(), chunks * TerrainChunk.CHUNK_SIZE));
         }
 
 

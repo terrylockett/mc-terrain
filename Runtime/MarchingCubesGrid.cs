@@ -53,7 +53,8 @@ namespace McTerrain
 
 
         public void editModeDestoryChunks() {
-            foreach (TerrainChunk tChunk in terrainChunks) {
+
+            foreach (TerrainChunk tChunk in getTerrainChunks()) {
                 if(null != tChunk) {
                     DestroyImmediate(tChunk.gameObject);
                 }
@@ -93,6 +94,14 @@ namespace McTerrain
 
 
 
+
+        public void makeBombHole(Vector3 point, float radius) {
+            foreach (TerrainChunk tChunk in getTerrainChunks())
+            {
+                tChunk.setTerrainData(this.terrainData);
+                tChunk.makeBombHole(point, radius);
+            }
+        }
 
 
         public void deformTerrain(Vector3 point, float radius, bool isSubtractTerrain)

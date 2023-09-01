@@ -103,6 +103,7 @@ namespace McTerrain
 
             if (GUILayout.Button("Generate mesh"))
             {
+                mcGrid.editModeDestoryChunks();
                 mcGrid.createGrid();
             }
 

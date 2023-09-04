@@ -22,8 +22,9 @@ namespace McTerrain {
 
 		private bool isSculptMode = false;
 		private float brushSize = 4.0f;
-		private float brushstrength = 0.5f;
+		private float brushStrength = 0.5f;
 		private float brushHardness = 0.5f;
+		private bool isSmoothMode = false;
 		private bool leftMouseDown = false;
 		private bool shiftDown = false;
 
@@ -89,8 +90,9 @@ namespace McTerrain {
 
 			isSculptMode = EditorGUILayout.BeginToggleGroup("Enable sculpt mode", isSculptMode);
 			this.brushSize = EditorGUILayout.FloatField("Brush Size", this.brushSize);
-			EditorGUILayout.FloatField("Brush Strength", this.brushstrength);
-			EditorGUILayout.FloatField("Brush Hardness", this.brushHardness);
+			this.brushStrength = EditorGUILayout.FloatField("Brush Strength", this.brushStrength);
+			this.brushHardness = EditorGUILayout.FloatField("Brush Hardness", this.brushHardness);
+			this.isSmoothMode = EditorGUILayout.Toggle("Smooth Mode", this.isSmoothMode);
 			EditorGUILayout.EndToggleGroup();
 
 			if (GUILayout.Button("Generate mesh")) {
@@ -136,8 +138,13 @@ namespace McTerrain {
 						Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
 						RaycastHit hit;
 						if (Physics.Raycast(ray, out hit, 10000f)) {
-							MarchingCubesGrid mcGrid = getTargetGrid(); ;
-							mcGrid.deformTerrain(hit.point, brushSize, !shiftDown);
+							MarchingCubesGrid mcGrid = getTargetGrid();
+							if (isSmoothMode) {
+								mcGrid.smoothTerrain(hit.point, brushSize, brushStrength);
+							}
+							else {
+								mcGrid.deformTerrain(hit.point, brushSize, brushStrength, !shiftDown);
+							}
 						}
 					}
 				}

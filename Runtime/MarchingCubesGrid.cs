@@ -93,7 +93,7 @@ namespace McTerrain {
 		}
 
 
-		public void deformTerrain(Vector3 point, float radius, bool isSubtractTerrain) {
+		public void deformTerrain(Vector3 point, float radius, float brushStrength, bool isSubtractTerrain) {
 			//TODO calc which chunks this is in and only update those.
 
 			// synchTerrainDataToChunks();
@@ -101,9 +101,18 @@ namespace McTerrain {
 
 			foreach (TerrainChunk tChunk in getTerrainChunks()) {
 				tChunk.setTerrainData(this.terrainData);
-				tChunk.deformTerrainSphere(point, radius, isSubtractTerrain);
+				tChunk.deformTerrainSphere(point, radius, brushStrength, isSubtractTerrain);
 			}
 		}
+
+
+		public void smoothTerrain(Vector3 point, float radius, float brushStrength) {
+			foreach (TerrainChunk tChunk in getTerrainChunks()) {
+				tChunk.setTerrainData(this.terrainData);
+				tChunk.smoothTerrain(point, radius, brushStrength);
+			}
+		}
+
 
 
 		public void updateTerrainDataFromInspector() {

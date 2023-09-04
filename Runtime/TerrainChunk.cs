@@ -78,7 +78,7 @@ namespace McTerrain {
 		}
 
 
-		public void deformTerrainSphere(Vector3 location, float radius, bool isSubtractTerrain) {
+		public void deformTerrainSphere(Vector3 location, float radius, float strength, bool isSubtractTerrain) {
 
 			bool isTerrainDirty = false;
 			for (int x = 0; x < CHUNK_SIZE + 1; x++) {
@@ -103,10 +103,10 @@ namespace McTerrain {
 						//vNode.setIsOutside(isSubtractTerrain);
 
 						if (isSubtractTerrain) {
-							vNode.setWeight(vNode.getWeight() - 0.01f);
+							vNode.setWeight(vNode.getWeight() - strength);
 						}
 						else {
-							vNode.setWeight(vNode.getWeight() + 0.01f);
+							vNode.setWeight(vNode.getWeight() + strength);
 						}
 
 					}
@@ -117,6 +117,36 @@ namespace McTerrain {
 				drawMesh();
 			}
 		}
+
+		public void smoothTerrain(Vector3 location, float radius, float strength) {
+			bool isTerrainDirty = false;
+			for (int x = 0; x < CHUNK_SIZE + 1; x++) {
+				for (int y = 0; y < terrainData.getMapHeight(); y++) {
+					for (int z = 0; z < CHUNK_SIZE + 1; z++) {
+						VertexNode vNode = vertexNodes[x, y, z];
+						if ((vNode.getLocation() - location).magnitude > radius) {
+							continue;
+						}
+						if (vNode.getLocation().y == 0) {
+							continue;
+						}
+						if (vNode.getLocation().y >= terrainData.getMapHeight()) {
+							continue;
+						}
+
+
+						//TODO
+
+
+					}
+				}
+			}
+
+			if (isTerrainDirty) {
+				drawMesh();
+			}
+		}
+
 
 
 		private void createTerrain() {

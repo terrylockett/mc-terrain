@@ -99,6 +99,20 @@ namespace McTerrain {
 						}
 
 
+						if (vNode.getLocation().x == 0) {
+							vNode.setWeight(1);
+						}
+						if (vNode.getLocation().x >= terrainData.mapSize) {
+							vNode.setWeight(1);
+						}
+						if (vNode.getLocation().z == 0) {
+							vNode.setWeight(1);
+						}
+						if (vNode.getLocation().z >= terrainData.mapSize) {
+							vNode.setWeight(1);
+						}
+
+
 						isTerrainDirty = true;
 						//vNode.setIsOutside(isSubtractTerrain);
 

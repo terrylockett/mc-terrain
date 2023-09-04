@@ -11,6 +11,8 @@ namespace McTerrain {
 		[SerializeField] private Vector3 location;
 		[SerializeField] private float weight = 0f;
 
+		private static readonly float MAX_WEIGHT = 1f;
+
 		public VertexNode(Vector3 location) {
 			this.location = location;
 		}
@@ -34,6 +36,10 @@ namespace McTerrain {
 		}
 
 		public void setWeight(float weight) {
+			if(weight > MAX_WEIGHT) {
+				this.weight = MAX_WEIGHT;
+				return;
+			}
 			this.weight = weight;
 		}
 

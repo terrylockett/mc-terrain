@@ -36,7 +36,7 @@ namespace McTerrain {
 			this.mapHeightText = serializedObject.FindProperty("mapHeight");
 			this.amplidtudeText = serializedObject.FindProperty("amplitude");
 			this.xScalarText = serializedObject.FindProperty("xScalar");
-			this.yScalarText = serializedObject.FindProperty("yScalar");
+			this.yScalarText = serializedObject.FindProperty("zScalar");
 
 			this.xOffsetText = serializedObject.FindProperty("xOffset");
 			this.zOffsetText = serializedObject.FindProperty("zOffset");
@@ -72,9 +72,9 @@ namespace McTerrain {
 			EditorGUILayout.PropertyField(isoLevelText);
 			EditorGUILayout.EndToggleGroup();
 
-			fallOffSettingsToggle = EditorGUILayout.BeginToggleGroup("Fall Off Settings", fallOffSettingsToggle);
-			EditorGUILayout.TextArea("TODO");
-			EditorGUILayout.EndToggleGroup();
+			// fallOffSettingsToggle = EditorGUILayout.BeginToggleGroup("Fall Off Settings", fallOffSettingsToggle);
+			// EditorGUILayout.TextArea("TODO");
+			// EditorGUILayout.EndToggleGroup();
 
 
 			MarchingCubesGrid mcGrid = getTargetGrid();

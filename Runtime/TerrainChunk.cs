@@ -202,8 +202,13 @@ namespace McTerrain {
 				 (vec.x / terrainData.mapSize) * terrainData.xAmpScale + terrainData.xOffset,
 				 (vec.z / terrainData.mapSize) * terrainData.zAmpScale + terrainData.zOffset);
 
-			returnVal += (vec.y / terrainData.mapHeight);
-			return returnVal * this.terrainData.amplitude;
+			returnVal += (vec.y / terrainData.mapHeight) / terrainData.amplitude;
+
+
+			float tmp = Mathf.InverseLerp(0, 2/terrainData.amplitude, returnVal );
+			//Debug.Log("zz: "+tmp);
+			return tmp;
+			//return returnVal * this.terrainData.amplitude;
 		}
 
 

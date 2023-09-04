@@ -11,14 +11,14 @@ namespace McTerrain {
 		[SerializeField] private int mapSize;
 		[SerializeField] private int chunks = 4;
 		[SerializeField] private int mapHeight = 10;
-		[SerializeField] float amplitude = 1f;
+		[SerializeField, Min(0.001f)] float amplitude = 1f;
 		[SerializeField] private float xScalar = 1f;
-		[SerializeField] float yScalar = 1f;
+		[SerializeField] float zScalar = 1f;
 
 		[SerializeField] float xOffset = 0f;
 		[SerializeField] float zOffset = 0f;
 
-		[SerializeField] float isoLevel = 0.6f;
+		[SerializeField, Range(0f, 1f)] float isoLevel = 0.6f;
 
 		[SerializeField] private MCTerrainData terrainData;
 		[SerializeField] private List<TerrainChunk> terrainChunks;
@@ -61,7 +61,7 @@ namespace McTerrain {
 		public void createGrid() {
 
 			if (this.terrainData == null) {
-				this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, xOffset, zOffset, isoLevel);
+				this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, zScalar, xOffset, zOffset, isoLevel);
 			}
 
 			updateTerrainDataFromInspector();
@@ -71,7 +71,7 @@ namespace McTerrain {
 
 			//create terain data
 			if (null == this.terrainData) {
-				this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, yScalar, xOffset, zOffset, isoLevel);
+				this.terrainData = new MCTerrainData(amplitude, mapSize, mapHeight, xScalar, zScalar, xOffset, zOffset, isoLevel);
 			}
 
 			for (int x = 0; x < chunks; x++) {
@@ -122,7 +122,7 @@ namespace McTerrain {
 			this.terrainData.mapSize = this.mapSize;
 			this.terrainData.mapHeight = this.mapHeight;
 			this.terrainData.xAmpScale = this.xScalar;
-			this.terrainData.zAmpScale = this.yScalar;
+			this.terrainData.zAmpScale = this.zScalar;
 			this.terrainData.xOffset = this.xOffset;
 			this.terrainData.zOffset = this.zOffset;
 			this.terrainData.isoLevel = this.isoLevel;

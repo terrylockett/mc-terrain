@@ -3,60 +3,43 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace McTerrain
-{
-    [Serializable]
-    public class VertexNode
-    {
+namespace McTerrain {
+	[Serializable]
+	public class VertexNode {
 
-        [SerializeField] private bool IsOutside = false;
-        [SerializeField] private Vector3 location;
-        [SerializeField] private float weight = 0f;
+		[SerializeField] private bool IsOutside = false;
+		[SerializeField] private Vector3 location;
+		[SerializeField] private float weight = 0f;
 
-        private static readonly float MAX_WEIGHT = 1.0f;
-
-
-        public VertexNode(Vector3 location)
-        {
-            this.location = location;
-        }
+		public VertexNode(Vector3 location) {
+			this.location = location;
+		}
 
 
-        //fuck c# properties. I like boilerplate code.
-        public void setIsOutside(bool IsOutside)
-        {
-            this.IsOutside = IsOutside;
-        }
+		//fuck c# properties. I like boilerplate code.
+		public void setIsOutside(bool IsOutside) {
+			this.IsOutside = IsOutside;
+		}
 
-        public bool getIsOutside()
-        {
-            return this.IsOutside;
-        }
+		public bool getIsOutside() {
+			return this.IsOutside;
+		}
 
-        public void setLocation(Vector3 location)
-        {
-            this.location = location;
-        }
+		public void setLocation(Vector3 location) {
+			this.location = location;
+		}
 
-        public Vector3 getLocation()
-        {
-            return this.location;
-        }
+		public Vector3 getLocation() {
+			return this.location;
+		}
 
-        public void setWeight(float weight)
-        {
-            // if(weight > MAX_WEIGHT) {
-            //     this.weight = MAX_WEIGHT;
-            //     return;
-            // }
+		public void setWeight(float weight) {
+			this.weight = weight;
+		}
 
-            this.weight = weight;
-        }
+		public float getWeight() {
+			return this.weight;
+		}
 
-        public float getWeight()
-        {
-            return this.weight;
-        }
-
-    }
+	}
 }

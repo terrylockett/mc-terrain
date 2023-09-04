@@ -62,28 +62,28 @@ namespace McTerrain
         //TODO JFC fix this duplicate code
         public void makeBombHole(Vector3 location, float radius) {
              bool isTerrainDirty = false;
-            for (int x = 0; x < CHUNK_SIZE + 1; x++)
-            {
-                for (int y = 0; y < terrainData.getMapHeight(); y++)
-                {
-                    for (int z = 0; z < CHUNK_SIZE + 1; z++)
-                    {
+            for (int x = 0; x < CHUNK_SIZE + 1; x++) {
+                for (int y = 0; y < terrainData.getMapHeight(); y++) {
+                    for (int z = 0; z < CHUNK_SIZE + 1; z++) {
                         VertexNode vNode = vertexNodes[x, y, z];
-                        if ((vNode.getLocation() - location).magnitude > radius)
-                        {
+                        if ((vNode.getLocation() - location).magnitude > radius) {
                             continue;
                         }
-                         if (vNode.getLocation().y == 0)
-                        {
+                        if (vNode.getLocation().y == 0) {
                             continue;
                         }
-                        if (vNode.getLocation().y >= terrainData.getMapHeight())
-                        {
+                        if (vNode.getLocation().y >= terrainData.getMapHeight()) {
                             continue;
                         }
                         isTerrainDirty = true;
 
-                        vNode.setWeight(1.0f);
+                        float distanceFromExplostionLoc = (location - vNode.getLocation()).magnitude;
+                        float isoLevel = this.terrainData.isoLevel;
+
+                        float tmp = Mathf.InverseLerp(0, radius, distanceFromExplostionLoc);
+                        tmp = 1 - tmp;
+
+                        vNode.setWeight(vNode.getWeight() + (tmp * isoLevel)  );
                     }
                 }
             }
@@ -208,7 +208,7 @@ namespace McTerrain
                  (vec.x / terrainData.mapSize) * terrainData.xAmpScale + terrainData.xOffset,
                  (vec.z / terrainData.mapSize) * terrainData.zAmpScale + terrainData.zOffset);
 
-            returnVal += (vec.y / terrainData.mapHeight) * 1.0f;
+            returnVal += (vec.y / terrainData.mapHeight);
             return returnVal * this.terrainData.amplitude;
         }
 

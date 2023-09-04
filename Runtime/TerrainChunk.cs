@@ -170,7 +170,8 @@ namespace McTerrain {
 
 			for (int x = 0; x < CHUNK_SIZE + 1; x++) {
 				for (int z = 0; z < CHUNK_SIZE + 1; z++) {
-					//vertexNodes[x,0,z].setWeight(1);
+					vertexNodes[x,0,z].setWeight(0);
+					vertexNodes[x,terrainData.getMapHeight(),z].setWeight(1f);
 				}
 			}
 		}

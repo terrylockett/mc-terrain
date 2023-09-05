@@ -18,12 +18,12 @@ namespace McTerrain {
 
 		bool terrainSizeToggle = false;
 		bool perlinSettingsToggle = false;
-		bool fallOffSettingsToggle = false;
+		// bool fallOffSettingsToggle = false;
 
 		private bool isSculptMode = false;
 		private float brushSize = 4.0f;
-		private float brushStrength = 0.5f;
-		private float brushHardness = 0.5f;
+		private float brushStrength = 0.02f;
+		//private float brushHardness = 0.5f;
 		private bool isSmoothMode = false;
 		private bool leftMouseDown = false;
 		private bool shiftDown = false;
@@ -91,8 +91,8 @@ namespace McTerrain {
 			isSculptMode = EditorGUILayout.BeginToggleGroup("Enable sculpt mode", isSculptMode);
 			this.brushSize = EditorGUILayout.FloatField("Brush Size", this.brushSize);
 			this.brushStrength = EditorGUILayout.FloatField("Brush Strength", this.brushStrength);
-			this.brushHardness = EditorGUILayout.FloatField("Brush Hardness", this.brushHardness);
-			this.isSmoothMode = EditorGUILayout.Toggle("Smooth Mode", this.isSmoothMode);
+			// this.brushHardness = EditorGUILayout.FloatField("Brush Hardness", this.brushHardness);
+			// this.isSmoothMode = EditorGUILayout.Toggle("Smooth Mode", this.isSmoothMode);
 			EditorGUILayout.EndToggleGroup();
 
 			if (GUILayout.Button("Generate mesh")) {
@@ -143,7 +143,7 @@ namespace McTerrain {
 								mcGrid.smoothTerrain(hit.point, brushSize, brushStrength);
 							}
 							else {
-								mcGrid.deformTerrain(hit.point, brushSize, brushStrength, !shiftDown);
+								mcGrid.deformTerrain(hit.point, brushSize, brushStrength * Time.deltaTime, !shiftDown);
 							}
 						}
 					}

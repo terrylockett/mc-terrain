@@ -134,6 +134,8 @@ namespace McTerrain {
 
 		public void smoothTerrain(Vector3 location, float radius, float strength) {
 			bool isTerrainDirty = false;
+			float sumOfWeights = 0;
+			int numNodes = 0;
 			for (int x = 0; x < CHUNK_SIZE + 1; x++) {
 				for (int y = 0; y < terrainData.getMapHeight(); y++) {
 					for (int z = 0; z < CHUNK_SIZE + 1; z++) {
@@ -148,13 +150,61 @@ namespace McTerrain {
 							continue;
 						}
 
+						float dist = (vNode.getLocation() - location).magnitude;
+						if (dist >= radius) {
+							continue;
+						}
+
+
 
 						//TODO
-
-
+						sumOfWeights += vNode.getWeight();
+						numNodes++;
 					}
 				}
 			}
+
+			if (numNodes == 0) {
+				return;
+			}
+
+			float averageWeight = sumOfWeights / numNodes;
+			Debug.Log("zz: " + averageWeight);
+
+
+			for (int x = 0; x < CHUNK_SIZE + 1; x++) {
+				for (int y = 0; y < terrainData.getMapHeight(); y++) {
+					for (int z = 0; z < CHUNK_SIZE + 1; z++) {
+						VertexNode vNode = vertexNodes[x, y, z];
+						float dist = (vNode.getLocation() - location).magnitude;
+						if (dist >= radius) {
+							continue;
+						}
+
+
+						isTerrainDirty = true;
+
+						float percent = Mathf.InverseLerp(0, radius, dist);
+						float percTmp = 1 - percent;
+
+						float weightAvgDiff = vNode.getWeight() - averageWeight;
+
+
+						vNode.setWeight(vNode.getWeight() - weightAvgDiff * percTmp * strength);
+
+						// if(vNode.getWeight() > terrainData.isoLevel) {
+						// 	float tmp = weightAvgDiff * percTmp;
+						// 	vNode.setWeight(vNode.getWeight() + tmp);
+						// }
+						// else {
+						// 	float tmp = weightAvgDiff * percTmp;
+						// 	vNode.setWeight(vNode.getWeight() - tmp);
+						// }
+					}
+				}
+			}
+
+
 
 			if (isTerrainDirty) {
 				drawMesh();
@@ -184,8 +234,8 @@ namespace McTerrain {
 
 			for (int x = 0; x < CHUNK_SIZE + 1; x++) {
 				for (int z = 0; z < CHUNK_SIZE + 1; z++) {
-					vertexNodes[x,0,z].setWeight(0);
-					vertexNodes[x,terrainData.getMapHeight(),z].setWeight(1f);
+					vertexNodes[x, 0, z].setWeight(0);
+					vertexNodes[x, terrainData.getMapHeight(), z].setWeight(1f);
 				}
 			}
 		}
@@ -220,7 +270,7 @@ namespace McTerrain {
 			returnVal += (vec.y / terrainData.mapHeight) / terrainData.amplitude;
 
 
-			float tmp = Mathf.InverseLerp(0, 2/terrainData.amplitude, returnVal );
+			float tmp = Mathf.InverseLerp(0, 2 / terrainData.amplitude, returnVal);
 			//Debug.Log("zz: "+tmp);
 			return tmp;
 			//return returnVal * this.terrainData.amplitude;

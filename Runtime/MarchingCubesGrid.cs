@@ -180,7 +180,6 @@ namespace McTerrain {
 			this.terrainChunks.Clear();
 			Transform chunksParent = getTerrainChunksParent();
 			foreach (TerrainChunk tChunk in chunksParent.GetComponentsInChildren<TerrainChunk>()) {
-				Debug.Log("Adding tChunks");
 				this.terrainChunks.Add(tChunk);
 				tChunk.setTerrainData(this.terrainData);
 			}

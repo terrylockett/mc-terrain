@@ -51,7 +51,7 @@ namespace McTerrain {
 				for (int y = 0; y < terrainData.getMapHeight(); y++) {
 					for (int z = 0; z < CHUNK_SIZE + 1; z++) {
 						VertexNode vNode = vertexNodes[x, y, z];
-						if ((vNode.getLocation() - location).magnitude > radius) {
+						if (((vNode.getLocation()+ transform.position) - location).magnitude > radius) {
 							continue;
 						}
 						if (vNode.getLocation().y == 0) {
@@ -62,7 +62,7 @@ namespace McTerrain {
 						}
 						isTerrainDirty = true;
 
-						float distanceFromExplostionLoc = (location - vNode.getLocation()).magnitude;
+						float distanceFromExplostionLoc = (location - (vNode.getLocation()+ transform.position)).magnitude;
 						float isoLevel = this.terrainData.isoLevel;
 
 						float tmp = Mathf.InverseLerp(0, radius, distanceFromExplostionLoc);
@@ -85,7 +85,7 @@ namespace McTerrain {
 				for (int y = 0; y < terrainData.getMapHeight(); y++) {
 					for (int z = 0; z < CHUNK_SIZE + 1; z++) {
 						VertexNode vNode = vertexNodes[x, y, z];
-						if ((vNode.getLocation() - location).magnitude > radius) {
+						if (((vNode.getLocation()+ transform.position) - location).magnitude > radius) {
 							continue;
 						}
 						// if(vNode.getIsOutside() == isSubtractTerrain) {

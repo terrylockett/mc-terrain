@@ -25,7 +25,7 @@ The editor has 3 sections that can be toggles on via check-boxes: `Terrain Size`
 
 #### Perlin Settings
 These settings configure the "rolling hills" that the terrain is generated with.
-- `Amplitude` The size of the hills in the Y dir. If you want fat terrain set this to 0 (it will change it 0.001 which is minimum).
+- `Amplitude` The size of the hills in the Y dir. If you want flat terrain set this to 0 (it will change it 0.001 which is minimum).
 - `X Scalar` (terrible name.. will fix someday) This is the frequency of hills in the X direction.
 - `Z Scalar` This is the frequency of hills in the Z direction.
 - `X Offset` Change this for different random generation in the X dir. 

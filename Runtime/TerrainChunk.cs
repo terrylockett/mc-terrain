@@ -46,15 +46,11 @@ namespace McTerrain {
 
 		//TODO JFC fix this duplicate code
 		public void makeBombHole(Vector3 location, float radius) {
-			Debug.Log("transform.position");
-
-
 			bool isTerrainDirty = false;
 			for (int x = 0; x < CHUNK_SIZE + 1; x++) {
 				for (int y = 0; y < terrainData.getMapHeight(); y++) {
 					for (int z = 0; z < CHUNK_SIZE + 1; z++) {
 						VertexNode vNode = vertexNodes[x, y, z];
-
 						if (((vNode.getLocation()+ transform.position) - location).magnitude > radius) {
 							continue;
 						}
